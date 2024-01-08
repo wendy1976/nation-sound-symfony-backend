@@ -19,6 +19,9 @@ class DateConcert
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_heure = null;
 
+    #[ORM\OneToOne(mappedBy: 'date_concert', cascade: ['persist', 'remove'])]
+    private ?Concert $concert = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,5 +37,27 @@ class DateConcert
         $this->date_heure = $date_heure;
 
         return $this;
+    }
+
+    public function getConcert(): ?Concert
+    {
+        return $this->concert;
+    }
+
+    public function setConcert(Concert $concert): static
+    {
+        // set the owning side of the relation if necessary
+        if ($concert->getDateConcert() !== $this) {
+            $concert->setDateConcert($this);
+        }
+
+        $this->concert = $concert;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->date_heure->format('Y-m-d H:i:s');
     }
 }

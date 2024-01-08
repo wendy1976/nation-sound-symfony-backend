@@ -7,6 +7,7 @@ use App\Entity\Scene;
 use App\Entity\Musique;
 use App\Entity\DateConcert;
 use App\Entity\Pass;
+use App\Entity\Concert;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -51,5 +52,6 @@ class DashboardController extends AbstractDashboardController
     yield MenuItem::linkToCrud('Musiques', 'fas fa-list', Musique::class);
     yield MenuItem::linkToCrud('Dates et horaires', 'fas fa-list', DateConcert::class);
     yield MenuItem::linkToCrud('Les Pass', 'fas fa-list', Pass::class);
+    yield MenuItem::linkToCrud('Les Concerts', 'fas fa-list', Concert::class);
 }
 }
