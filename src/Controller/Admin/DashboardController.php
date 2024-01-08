@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Scene;
+use App\Entity\Musique;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -45,5 +46,6 @@ class DashboardController extends AbstractDashboardController
 {
     yield MenuItem::linktoDashboard('Accueil', 'fa fa-home');
     yield MenuItem::linkToCrud('Scenes', 'fas fa-list', Scene::class);
+    yield MenuItem::linkToCrud('Musiques', 'fas fa-list', Musique::class);
 }
 }
