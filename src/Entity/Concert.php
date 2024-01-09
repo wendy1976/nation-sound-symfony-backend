@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ConcertRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -48,6 +50,21 @@ class Concert
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'concert', targetEntity: ConcertPass::class)]
+    private Collection $concertPasses;
+
+    public function __construct()
+    {
+        $this->concertPasses = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        // Retournez ici une propriété appropriée de l'objet Concert
+        // Par exemple, si votre objet Concert a une propriété 'nom_artiste', vous pouvez faire :
+        return $this->nom_artiste;
+    }
 
     public function getId(): ?int
     {
@@ -158,5 +175,35 @@ class Concert
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return Collection<int, ConcertPass>
+     */
+    public function getConcertPasses(): Collection
+    {
+        return $this->concertPasses;
+    }
+
+    public function addConcertPass(ConcertPass $concertPass): self
+    {
+        if (!$this->concertPasses->contains($concertPass)) {
+            $this->concertPasses[] = $concertPass;
+            $concertPass->setConcert($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConcertPass(ConcertPass $concertPass): self
+    {
+        if ($this->concertPasses->removeElement($concertPass)) {
+            // set the owning side to null (unless already changed)
+            if ($concertPass->getConcert() === $this) {
+                $concertPass->setConcert(null);
+            }
+        }
+
+        return $this;
     }
 }
