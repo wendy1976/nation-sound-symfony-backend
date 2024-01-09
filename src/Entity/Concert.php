@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use App\Repository\ConcertRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,9 +13,12 @@ use Symfony\UX\Turbo\Attribute\Broadcast;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
 #[ORM\Entity(repositoryClass: ConcertRepository::class)]
 #[Broadcast]
 #[Vich\Uploadable]
+
+
 class Concert
 {
     #[ORM\Id]
